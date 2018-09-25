@@ -1,0 +1,82 @@
+server:
+  port: ${server.port}
+  
+  
+spring:
+  application:
+    name: paingan-zuul
+  rabbitmq:
+    host: localhost
+    port: 5672
+  security:
+    user:
+      name: root
+      password: password
+  zipkin:
+    base-url: http://localhost:9411
+    enabled: true
+    locator:
+      discovery:
+        enabled: true
+
+eureka:
+  client:
+    enabled: true
+    service-url:
+      defaultZone: http://${eureka.instance.hostname}:8900/eureka/
+  instance:
+    hostname: localhost
+    lease-renewal-interval-in-seconds: 100
+    metadata-map:
+      instanceId: ${spring.application.name}:${spring.application.instance_id:${random.value}}
+
+security:
+  oauth2:
+    client:
+      access-token-uri: http://localhost:8085/oauth/token
+      client-id: paingan-client
+      client-secret: paingan-secret
+      user-authorization-uri: http://localhost:8085/oauth/authorize
+    resource:
+      user-info-uri: http://localhost:8085/user/authenticate
+
+zuul:
+  host:
+    connect-timeout-millis: 60000
+    max-per-route-connections: 100
+    max-total-connections: 1000
+    socket-timeout-millis: 60000
+  routes:
+    paingan-member:
+      path: /member/**
+      sensitive-headers: ''
+      serviceId: paingan-member-service
+      strip-prefix: true
+    paingan-oauth2:
+      path: /uaa/**
+      sensitive-headers: ''
+      serviceId: paingan-oauth2
+      strip-prefix: true
+    paingan-order:
+      path: /order/**
+      sensitive-headers: ''
+      serviceId: paingan-order-service
+      strip-prefix: true
+  semaphore:
+    max-semaphores: 500
+    
+    
+    
+hystrix:
+  command:
+    default:
+      execution:
+        isolation:
+          strategy: SEMAPHORE
+          thread:
+            timeoutInMilliseconds: 60000
+  shareSecurityContext: true
+  
+ribbon:
+  ConnectTimeout: 60000
+  ReadTimeout: 60000

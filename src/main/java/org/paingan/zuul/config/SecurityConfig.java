@@ -15,29 +15,14 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter {
 	
 	@Override
 	protected void configure(HttpSecurity http) throws Exception {
-//		http
-//		.authorizeRequests()
-//			.antMatchers("/login").permitAll()
-//			.anyRequest().authenticated()
+		
+		http.csrf().disable()
+		.authorizeRequests()
+			.antMatchers("/uaa/**","/login","/member/**","/order/**").permitAll()
+			.anyRequest().authenticated()
 //			.and().formLogin()
 //			.loginPage("/login")
-//			.defaultSuccessUrl("/")
-//			.and().httpBasic().disable();
-		
-		http.authorizeRequests().anyRequest().permitAll();
-		
-//		http
-//		.authorizeRequests()
-//			.antMatchers("/uaa/**","/login").permitAll()
-//			.anyRequest().authenticated()
-//			.and().formLogin()
-//			.loginPage("/login")
-//			.and().httpBasic().disable();
+			.and().httpBasic().disable();
 	}
-	
-	@Override
-	public void configure(AuthenticationManagerBuilder auth) throws Exception {
-//		auth.jdbcAuthentication().dataSource(dataSource);
-		auth.inMemoryAuthentication().withUser("root").password("password").roles("USER");
-	}
+
 }
