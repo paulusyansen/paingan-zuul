@@ -7,21 +7,24 @@
 |paingan-member-service|https://github.com/paulusyansen/paingan-member-service|8100|
 |paingan-order-service|https://github.com/paulusyansen/paingan-order-service|8300|
 |paingan-config-server|on progress||
+|paingan-angular-ms|on progress||
 
 
-# Tools
-- sts
+## Tools
+- eclipse sts
 - maven
 - git
 - docker
 - rabbitmq
 - zipkin
 
-# Account
+## Testing Account
 - admin/password ~ role_admin
 - user/password ~ role_user
 
-### rabbitmq
+## Others
+
+#### rabbitmq
 ```sh
 $ brew services start rabbitmq
 ```
@@ -29,7 +32,7 @@ $ brew services start rabbitmq
 http://localhost:15672 guest/guest
 ```
 
-### zipkin
+#### zipkin
 ```sh
 $ RABBIT_URI=amqp://localhost java -jar zipkin-server-2.11.5-exec.jar 
 ```
@@ -37,6 +40,10 @@ $ RABBIT_URI=amqp://localhost java -jar zipkin-server-2.11.5-exec.jar
 http://localhost:9411/zipkin/
 ```
 
-### DOCKER
+#### docker
+```sh
 docker run -d -p 9000:9000 -v /var/run/docker.sock:/var/run/docker.sock -v portainer_data:/data portainer/portainer
+```
+```sh
 http://localhost:9000
+```
