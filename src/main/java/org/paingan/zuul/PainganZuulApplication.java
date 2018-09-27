@@ -13,7 +13,6 @@ import brave.sampler.Sampler;
 @SpringBootApplication
 @EnableZuulProxy
 @EnableEurekaClient
-@EnableAutoConfiguration
 public class PainganZuulApplication {
 
 	public static void main(String[] args) {

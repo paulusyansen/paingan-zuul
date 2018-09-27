@@ -9,7 +9,7 @@ import org.springframework.stereotype.Component;
 import com.netflix.zuul.ZuulFilter;
 import com.netflix.zuul.context.RequestContext;
 
-//@Component
+@Component
 public class GatewayFilter extends ZuulFilter {
 	private Logger logger = LoggerFactory.getLogger(this.getClass());
 	
@@ -39,6 +39,7 @@ public class GatewayFilter extends ZuulFilter {
      */
     if(request.getHeader("Authorization") != null){
     	ctx.addZuulRequestHeader("Authorization", request.getHeader("Authorization"));
+    	logger.info("authorization -> {}",request.getHeader("Authorization"));
     }
     
     logger.info("request -> {} request uri -> {}",request, request.getRequestURI());
