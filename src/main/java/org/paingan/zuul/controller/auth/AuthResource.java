@@ -43,6 +43,11 @@ public class AuthResource {
         Map<String, String> params) {
         return authenticationService.authenticate(request, response, params);
     }
+    
+    @RequestMapping(value = "/refresh", method = RequestMethod.POST)
+    public ResponseEntity<OAuth2AccessToken> refresh(HttpServletRequest request, HttpServletResponse response, @RequestBody Map<String, String> params) {
+        return authenticationService.refreshToken(request, response, params);
+    }
 
     /**
      * Logout current user deleting his cookies.

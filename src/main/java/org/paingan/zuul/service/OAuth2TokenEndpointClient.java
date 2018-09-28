@@ -28,5 +28,5 @@ public interface OAuth2TokenEndpointClient {
      * @throws org.springframework.security.oauth2.common.exceptions.ClientAuthenticationException
      * if we cannot contact the token endpoint.
      */
-    //OAuth2AccessToken sendRefreshGrant(String refreshTokenValue);
+    OAuth2AccessToken sendRefreshGrant(String refreshTokenValue);
 }

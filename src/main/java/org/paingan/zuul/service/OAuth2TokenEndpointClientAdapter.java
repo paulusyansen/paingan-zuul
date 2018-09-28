@@ -57,31 +57,31 @@ public abstract class OAuth2TokenEndpointClientAdapter implements OAuth2TokenEnd
         return accessToken;
     }
 
-//    /**
-//     * Sends a refresh grant to the token endpoint using the current refresh token to obtain new tokens.
-//     *
-//     * @param refreshTokenValue the refresh token to use to obtain new tokens.
-//     * @return the new, refreshed access token.
-//     */
-//    @Override
-//    public OAuth2AccessToken sendRefreshGrant(String refreshTokenValue) {
-//        MultiValueMap<String, String> params = new LinkedMultiValueMap<>();
-//        params.add("grant_type", "refresh_token");
-//        params.add("refresh_token", refreshTokenValue);
-//        HttpHeaders headers = new HttpHeaders();
-//        addAuthentication(headers, params);
-//        HttpEntity<MultiValueMap<String, String>> entity = new HttpEntity<>(params, headers);
-//        log.debug("contacting OAuth2 token endpoint to refresh OAuth2 JWT tokens");
-//        ResponseEntity<OAuth2AccessToken> responseEntity = restTemplate.postForEntity(getTokenEndpoint(), entity,
-//                                                                                      OAuth2AccessToken.class);
-//        if (responseEntity.getStatusCode() != HttpStatus.OK) {
-//            log.debug("failed to refresh tokens: {}", responseEntity.getStatusCodeValue());
-//            throw new HttpClientErrorException(responseEntity.getStatusCode());
-//        }
-//        OAuth2AccessToken accessToken = responseEntity.getBody();
-//        log.info("refreshed OAuth2 JWT cookies using refresh_token grant");
-//        return accessToken;
-//    }
+    /**
+     * Sends a refresh grant to the token endpoint using the current refresh token to obtain new tokens.
+     *
+     * @param refreshTokenValue the refresh token to use to obtain new tokens.
+     * @return the new, refreshed access token.
+     */
+    @Override
+    public OAuth2AccessToken sendRefreshGrant(String refreshTokenValue) {
+        MultiValueMap<String, String> params = new LinkedMultiValueMap<>();
+        params.add("grant_type", "refresh_token");
+        params.add("refresh_token", refreshTokenValue);
+        HttpHeaders headers = new HttpHeaders();
+        addAuthentication(headers, params);
+        HttpEntity<MultiValueMap<String, String>> entity = new HttpEntity<>(params, headers);
+        log.debug("contacting OAuth2 token endpoint to refresh OAuth2 JWT tokens");
+        ResponseEntity<OAuth2AccessToken> responseEntity = restTemplate.postForEntity(getTokenEndpoint(), entity,
+                                                                                      OAuth2AccessToken.class);
+        if (responseEntity.getStatusCode() != HttpStatus.OK) {
+            log.debug("failed to refresh tokens: {}", responseEntity.getStatusCodeValue());
+            throw new HttpClientErrorException(responseEntity.getStatusCode());
+        }
+        OAuth2AccessToken accessToken = responseEntity.getBody();
+        log.info("refreshed OAuth2 JWT cookies using refresh_token grant");
+        return accessToken;
+    }
 
     protected abstract void addAuthentication(HttpHeaders reqHeaders, MultiValueMap<String, String> formParams);
 

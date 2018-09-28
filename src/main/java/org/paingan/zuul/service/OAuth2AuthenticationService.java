@@ -85,4 +85,29 @@ public class OAuth2AuthenticationService {
         cookieHelper.clearCookies(httpServletRequest, httpServletResponse);
     }
 
+    
+    /**
+     * Try to refresh the access token using the refresh token provided as cookie.
+     * Note that browsers typically send multiple requests in parallel which means the access token
+     * will be expired on multiple threads. We don't want to send multiple requests to UAA though,
+     * so we need to cache results for a certain duration and synchronize threads to avoid sending
+     * multiple requests in parallel.
+     *
+     * @param request       the request potentially holding the refresh token.
+     * @param response      the response setting the new cookies (if refresh was successful).
+     * @param refreshCookie the refresh token cookie. Must not be null.
+     * @return the new servlet request containing the updated cookies for relaying downstream.
+     */
+    public ResponseEntity<OAuth2AccessToken> refreshToken(HttpServletRequest request, HttpServletResponse response, Map<String, String> params) {
+   
+    	try {
+    		String refreshToken = params.get("refreshToken");
+	        OAuth2AccessToken accessToken = authorizationClient.sendRefreshGrant(refreshToken);
+	        return ResponseEntity.ok(accessToken);
+        } catch (Exception ex) {
+            log.error("failed to get OAuth2 tokens from UAA", ex);
+            throw ex;
+        }
+
+    }
 }
