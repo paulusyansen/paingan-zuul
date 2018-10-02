@@ -44,7 +44,7 @@ public class AuthResource {
         return authenticationService.authenticate(request, response, params);
     }
     
-    @RequestMapping(value = "/refresh", method = RequestMethod.POST)
+    @RequestMapping(value = "/refresh", method = RequestMethod.POST, consumes = MediaType.APPLICATION_JSON_VALUE, produces = MediaType.APPLICATION_JSON_VALUE)
     public ResponseEntity<OAuth2AccessToken> refresh(HttpServletRequest request, HttpServletResponse response, @RequestBody Map<String, String> params) {
         return authenticationService.refreshToken(request, response, params);
     }

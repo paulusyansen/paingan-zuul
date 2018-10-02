@@ -33,6 +33,7 @@ public class OAuth2AuthenticationConfiguration extends ResourceServerConfigurerA
         http
             .authorizeRequests()
             .antMatchers("/auth/login").permitAll()
+            .antMatchers("/auth/refresh").permitAll()
             .antMatchers("/auth/logout").authenticated();
 //            .and()
 //            .apply(refreshTokenSecurityConfigurerAdapter());
