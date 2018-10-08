@@ -7,13 +7,11 @@ import org.springframework.cloud.netflix.zuul.EnableZuulProxy;
 import org.springframework.context.annotation.Bean;
 
 import brave.sampler.Sampler;
-import springfox.documentation.swagger2.annotations.EnableSwagger2;
 
 
 @SpringBootApplication
 @EnableZuulProxy
 @EnableEurekaClient
-@EnableSwagger2
 public class PainganZuulApplication {
 
 	public static void main(String[] args) {

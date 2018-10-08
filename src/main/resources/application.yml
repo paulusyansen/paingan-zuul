@@ -1,7 +1,3 @@
-server:
-  port: ${server.port}
-  
-  
 spring:
   application:
     name: paingan-zuul
@@ -55,7 +51,7 @@ zuul:
     max-per-route-connections: 100
     max-total-connections: 1000
     socket-timeout-millis: 60000
-#  prefix: /api
+  prefix: /api
   routes:
     paingan-member:
       path: /member/**
@@ -75,7 +71,7 @@ zuul:
   semaphore:
     max-semaphores: 500
     
-    
+   
 
     
 hystrix:
