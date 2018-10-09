@@ -51,10 +51,10 @@ zuul:
     max-per-route-connections: 100
     max-total-connections: 1000
     socket-timeout-millis: 60000
-  prefix: /api
+  #prefix: /api
   routes:
     paingan-member:
-      path: /member/**
+      path: /api/member/**
       sensitive-headers: ''
       serviceId: paingan-member-service
       strip-prefix: true
@@ -64,7 +64,7 @@ zuul:
       serviceId: paingan-oauth2
       strip-prefix: true
     paingan-order:
-      path: /order/**
+      path: /api/order/**
       sensitive-headers: ''
       serviceId: paingan-order-service
       strip-prefix: true
